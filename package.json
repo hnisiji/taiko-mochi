@@ -1,0 +1,33 @@
+{
+  "name": "taiko-mochi",
+  "version": "0.0.1",
+  "description": "An example to use taiko.js on Azure Pipelines.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine",
+    "lint": "eslint **/*.js",
+    "taiko": "taiko"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hnisiji/taiko-mochi.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hnisiji/taiko-mochi/issues"
+  },
+  "homepage": "https://github.com/hnisiji/taiko-mochi#readme",
+  "devDependencies": {
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jasmine": "^2.10.1",
+    "jasmine": "^3.2.0",
+    "mkdirp": "^0.5.1",
+    "taiko": "^0.2.0"
+  },
+  "dependencies": {
+    "jasmine-reporters": "^2.3.2"
+  }
+}
