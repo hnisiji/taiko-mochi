@@ -31,7 +31,7 @@ describe('www.yahoo.co.jp', () => {
         const revisionInfo = browserFetcher.revisionInfo(revisions[0]);
 
         try {
-            const data = childProcess.execSync(`${revisionInfo.executablePath} --remote-debugging-port=0 --window-size=1440,900 --headless 2>&1`, { timeout: 5 * 1000 });
+            const data = childProcess.execSync(`${revisionInfo.executablePath} --remote-debugging-port=9222 --window-size=1440,900 --headless 2>&1`, { timeout: 5 * 1000 });
             console.log('success');
             console.log(data.toString());
         } catch (e) {
