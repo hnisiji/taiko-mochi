@@ -18,13 +18,8 @@ describe('www.yahoo.co.jp', () => {
         mkdirp(screenshotDir, done);
     });
 
-    beforeEach(async (done) => {
-        const result = await openBrowser({ headless: true });
-        console.log(result);
-        done();
-    });
-
     it('検索できる', async (done) => {
+        await openBrowser({ headless: true });
         await goto('https://www.yahoo.co.jp');
         await write('うおぽぉ', inputField({ id: 'srchtxt' }));
         await click($('#srchbtn'));
