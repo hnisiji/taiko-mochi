@@ -36,6 +36,7 @@ describe('www.yahoo.co.jp', () => {
             const [chrome, netstat] = await Promise.all([
                 exec(`${revisionInfo.executablePath} --remote-debugging-port=19222 --window-size=1440,900 --headless 2>&1`, { timeout: 5 * 1000 }).catch(e => e),
                 new Promise((r) => setTimeout(r, 1000)).then(() => exec('netstat -an'))
+                new Promise((r) => setTimeout(r, 1000)).then(() => exec('ps auxwww'))
             ]);
             console.log('success');
             console.log(`chrome stdout: ${chrome.stdout}`);
