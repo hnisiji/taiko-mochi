@@ -33,16 +33,18 @@ describe('www.yahoo.co.jp', () => {
         const revisionInfo = browserFetcher.revisionInfo(revisions[0]);
 
         try {
-            const [chrome, netstat] = await Promise.all([
+            const [chrome, netstat, ps] = await Promise.all([
                 exec(`${revisionInfo.executablePath} --remote-debugging-port=19222 --window-size=1440,900 --headless 2>&1`, { timeout: 5 * 1000 }).catch(e => e),
-                new Promise((r) => setTimeout(r, 1000)).then(() => exec('netstat -an'))
-                new Promise((r) => setTimeout(r, 1000)).then(() => exec('ps auxwww'))
+                new Promise((r) => setTimeout(r, 1000)).then(() => exec('netstat -an')),
+                new Promise((r) => setTimeout(r, 1000)).then(() => exec('ps auxwww')),
             ]);
             console.log('success');
             console.log(`chrome stdout: ${chrome.stdout}`);
             console.log(`chrome stderr: ${chrome.stderr}`);
             console.log(`netstat stdout: ${netstat.stdout}`);
             console.log(`netstat stderr: ${netstat.stderr}`);
+            console.log(`ps stdout: ${ps.stdout}`);
+            console.log(`ps stderr: ${ps.stderr}`);
         } catch (e) {
             console.log(e);
             console.log('failed');
