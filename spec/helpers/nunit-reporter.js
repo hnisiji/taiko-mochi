@@ -6,4 +6,4 @@ const nunitReporter = new reporters.NUnitXmlReporter({
     consolidateAll: false
 });
 jasmine.getEnv().addReporter(nunitReporter);
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
