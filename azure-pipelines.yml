@@ -16,3 +16,8 @@ steps:
     npm install
     npm test
   displayName: 'npm install and test'
+
+- task: PublishTestResults@2
+  inputs:
+    testRunner: NUnit
+    testResultsFiles: 'reports/**/*.xml'
