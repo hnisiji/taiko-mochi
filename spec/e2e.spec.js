@@ -30,8 +30,12 @@ describe('www.yahoo.co.jp', () => {
         const revisions = await browserFetcher.localRevisions();
         const revisionInfo = browserFetcher.revisionInfo(revisions[0]);
 
-        const data = childProcess.execSync(`${revisionInfo.executablePath} --headless 2>&1`, { timeout: 3 * 1000 });
-        console.log(data.toString());
+        try {
+            const data = childProcess.execSync(`${revisionInfo.executablePath} --remote-debugging-port=0 --headless 2>&1`, { timeout: 3 * 1000 });
+            console.log(data.toString());
+        } catch (e) {
+            console.log(e.stdout.toString());
+        }
         done();
     });
 
