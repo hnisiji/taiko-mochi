@@ -20,11 +20,10 @@ describe('www.yahoo.co.jp', () => {
         mkdirp(screenshotDir, done);
     });
 
-    beforeEach(async (done) => {
-        await openBrowser({ headless: true, args: '--no-sandbox' });
-        console.log('run openBrowser');
-        done();
-    });
+    // beforeEach(async (done) => {
+    //     await openBrowser({ headless: true, args: '--no-sandbox' });
+    //     done();
+    // });
 
     it(' troubleshooting', async (done) => {
         const browserFetcher = new BrowserFetcher();
@@ -36,16 +35,16 @@ describe('www.yahoo.co.jp', () => {
         done();
     });
 
-    it('検索できる', async (done) => {
-        await goto('https://www.yahoo.co.jp');
-        await write('うおぽぉ', inputField({ id: 'srchtxt' }));
-        await click($('#srchbtn'));
-        await screenshot({ path: path.join(screenshotDir, 'uopolo.png') });
-        done();
-    });
+    // it('検索できる', async (done) => {
+    //     await goto('https://www.yahoo.co.jp');
+    //     await write('うおぽぉ', inputField({ id: 'srchtxt' }));
+    //     await click($('#srchbtn'));
+    //     await screenshot({ path: path.join(screenshotDir, 'uopolo.png') });
+    //     done();
+    // });
 
-    afterEach(async (done) => {
-        await closeBrowser();
-        done();
-    });
+    // afterEach(async (done) => {
+    //     await closeBrowser();
+    //     done();
+    // });
 });
