@@ -13,6 +13,8 @@ const {
 } = require('taiko');
 const BrowserFetcher = require('taiko/lib/browserFetcher');
 const childProcess = require('child_process');
+const util = require('util');
+const exec = util.promisify(childProcess.exec);
 
 describe('www.yahoo.co.jp', () => {
     const screenshotDir = path.join(process.cwd(), 'reports/attachments/');
@@ -25,15 +27,21 @@ describe('www.yahoo.co.jp', () => {
     //     done();
     // });
 
-    it(' troubleshooting', async (done) => {
+    it('troubleshooting', async (done) => {
         const browserFetcher = new BrowserFetcher();
         const revisions = await browserFetcher.localRevisions();
         const revisionInfo = browserFetcher.revisionInfo(revisions[0]);
 
         try {
-            const data = childProcess.execSync(`${revisionInfo.executablePath} --remote-debugging-port=9222 --window-size=1440,900 --headless 2>&1`, { timeout: 5 * 1000 });
+            const [chrome, netstat] = await Promise.all([
+                exec(`${revisionInfo.executablePath} --remote-debugging-port=19222 --window-size=1440,900 --headless 2>&1`, { timeout: 5 * 1000 }).catch(e => e),
+                new Promise((r) => setTimeout(r, 1000)).then(() => exec('netstat -an'))
+            ]);
             console.log('success');
-            console.log(data.toString());
+            console.log(`chrome stdout: ${chrome.stdout}`);
+            console.log(`chrome stderr: ${chrome.stderr}`);
+            console.log(`netstat stdout: ${netstat.stdout}`);
+            console.log(`netstat stderr: ${netstat.stderr}`);
         } catch (e) {
             console.log(e);
             console.log('failed');
