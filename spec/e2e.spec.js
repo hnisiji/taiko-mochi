@@ -17,6 +17,8 @@ const util = require('util');
 const exec = util.promisify(childProcess.exec);
 
 describe('www.yahoo.co.jp', () => {
+    
+    jasmine.DEFAULT_TIMEOUT_INTERVAL=20000000;
     const screenshotDir = path.join(process.cwd(), 'reports/attachments/');
     beforeAll(async (done) => {
         mkdirp(screenshotDir, done);
@@ -31,7 +33,6 @@ describe('www.yahoo.co.jp', () => {
         const browserFetcher = new BrowserFetcher();
         const revisions = await browserFetcher.localRevisions();
         const revisionInfo = browserFetcher.revisionInfo(revisions[0]);
-        jasmine.DEFAULT_TIMEOUT_INTERVAL=20000000;
         try {
             const [chrome, netstat, ps] = await Promise.all([
                 exec(`${revisionInfo.executablePath} --enable-logging --v=1 --vmodule --remote-debugging-port=19222 --window-size=1440,900 --headless 2>&1`, { timeout: 10 * 1000 }).catch(e => e),
