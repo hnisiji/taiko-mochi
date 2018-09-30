@@ -37,7 +37,6 @@ describe('www.yahoo.co.jp', () => {
             const [chrome, netstat, ps] = await Promise.all([
                 exec(`${revisionInfo.executablePath} --enable-logging --v=1 --vmodule --remote-debugging-port=19222 --window-size=1440,900 --headless 2>&1`, { timeout: 10 * 1000 }).catch(e => e),
                 new Promise((r) => setTimeout(r, 5000)).then(() => exec('printenv')),
-                new Promise((r) => setTimeout(r, 5000)).then(() => exec('find /usr -iname "*chrom*" -type f')),
             ]);
             console.log('success');
             console.log(`chrome stdout: ${chrome.stdout}`);
