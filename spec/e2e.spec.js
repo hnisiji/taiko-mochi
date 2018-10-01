@@ -34,17 +34,15 @@ describe('www.yahoo.co.jp', () => {
         const revisions = await browserFetcher.localRevisions();
         const revisionInfo = browserFetcher.revisionInfo(revisions[0]);
         try {
-            const [chrome, netstat, ps] = await Promise.all([
-                exec(`${revisionInfo.executablePath} --enable-logging --v=1 --vmodule --remote-debugging-port=19222 --window-size=1440,900 --headless 2>&1`, { timeout: 10 * 1000 }).catch(e => e),
+            const [chrome, printenv] = await Promise.all([
+                exec(`${process.env.CHROME_BIN} --enable-logging --v=1 --vmodule --remote-debugging-port=19222 --window-size=1440,900 --headless`, { timeout: 10 * 1000 }).catch(e => e),
                 new Promise((r) => setTimeout(r, 5000)).then(() => exec('printenv')),
             ]);
             console.log('success');
             console.log(`chrome stdout: ${chrome.stdout}`);
             console.log(`chrome stderr: ${chrome.stderr}`);
-            console.log(`netstat stdout: ${netstat.stdout}`);
-            console.log(`netstat stderr: ${netstat.stderr}`);
-            console.log(`ps stdout: ${ps.stdout}`);
-            console.log(`ps stderr: ${ps.stderr}`);
+            console.log(`printenv stdout: ${printenv.stdout}`);
+            console.log(`printenv stderr: ${printenv.stderr}`);
         } catch (e) {
             console.log(e);
             console.log('failed');
